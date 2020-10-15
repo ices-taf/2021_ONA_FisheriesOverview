@@ -17,7 +17,7 @@ catch_trends <- read.taf("model/catch_trends.csv")
 clean_status <- read.taf("data/clean_status.csv")
 
 #set year and month for captions:
-cap_month = "September"
+cap_month = "October"
 cap_year = "2020"
 # set year for plot claculations
 

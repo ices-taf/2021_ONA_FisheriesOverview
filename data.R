@@ -18,10 +18,10 @@ unique(effort$sub.region)
 
 hist <- read.taf("bootstrap/data/ICES_nominal_catches/ICES_historical_catches.csv")
 official <- read.taf("bootstrap/data/ICES_nominal_catches/ICES_2006_2018_catches.csv")
-prelim <- read.taf("bootstrap/data/ICES_nominal_catches/ICES_preliminary_catches.csv")
+prelim <- read.taf("data/prelim2019.csv")
 
 catch_dat <-
-  format_catches(2020, "Baltic Sea",
+  format_catches(2020, "Oceanic Northeast Atlantic",
     hist, official, prelim, species_list, sid)
 
 write.taf(catch_dat, dir = "data", quote = TRUE)
@@ -100,15 +100,23 @@ sag_status <- read.taf("bootstrap/data/SAG_data/SAG_status.csv")
 clean_sag <- format_sag(sag_sum, sag_refpts, 2020, "Oceanic Northeast Atlantic")
 clean_status <- format_sag_status(sag_status, 2020, "Oceanic Northeast Atlantic")
 
+ONA_out <- c("cap.27.2a514",
+             "cod.2127.1f14",
+             "mur.27.67a-ce-k89a",
+             "reb.27.14b",
+             "reb.27.5a14",
+             "reg.27.561214",
+             "rjm.27.8",
+             "rjn.27.678abd",
+             "syc.27.67a-ce-j"
+)
+clean_sag <- dplyr::filter(clean_sag, !StockKeyLabel %in% ONA_out)
+clean_status <- dplyr::filter(clean_status, !StockKeyLabel %in% ONA_out)
+
 check <- unique(clean_sag$StockKeyLabel)
 unique(clean_status$StockKeyLabel)
 write.csv(check, file = "ONA_Stock_list.csv")
 
-
-# remove some stocks
-# Baltic_Out_stocks <-  c("sal.27.32", "sal.27.22-31", "ele.2737.nea", "trs.27.22-32", "her.27.30", "her.27.31")
-# clean_sag <- dplyr::filter(clean_sag, !StockKeyLabel %in% Baltic_Out_stocks)
-# clean_status <- dplyr::filter(clean_status, !StockKeyLabel %in% Baltic_Out_stocks)
 
 write.taf(clean_sag, dir = "data")
 write.taf(clean_status, dir = "data", quote = TRUE)
