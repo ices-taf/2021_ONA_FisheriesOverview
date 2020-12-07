@@ -10,15 +10,15 @@ mkdir("data")
 # load species list
 species_list <- read.taf("bootstrap/data/FAO_ASFIS_species/species_list.csv")
 sid <- read.taf("bootstrap/data/ICES_StockInformation/sid.csv")
-effort$sub.region <- tolower(effort$sub.region)
-unique(effort$sub.region)
+# effort$sub.region <- tolower(effort$sub.region)
+# unique(effort$sub.region)
 
 
-# 1: ICES official cath statistics
+# 1: ICES official catch statistics
 
 hist <- read.taf("bootstrap/data/ICES_nominal_catches/ICES_historical_catches.csv")
 official <- read.taf("bootstrap/data/ICES_nominal_catches/ICES_2006_2018_catches.csv")
-prelim <- read.taf("data/prelim2019.csv")
+prelim <- read.taf("bootstrap/data/ICES_nominal_catches/ICES_preliminary_catches.csv")
 
 catch_dat <-
   format_catches(2020, "Oceanic Northeast Atlantic",
@@ -108,14 +108,45 @@ ONA_out <- c("cap.27.2a514",
              "reg.27.561214",
              "rjm.27.8",
              "rjn.27.678abd",
-             "syc.27.67a-ce-j"
+             "syc.27.67a-ce-j", 
+             "gur.27.3-8",
+             "her.27.6a7bc",
+             "meg.27.7b-k8abd",
+             "cod.2127.1f14",
+             "her.27.1-24a514a",
+             "rja.27.nea",
+             "agn.27.nea",
+             "cap.27.2a514",
+             "spr.27.67a-cf-k",
+             "nep.fu.16",
+             "whg.27.7b-ce-k",
+             "pol.27.89a",
+             "pol.27.67",
+             "rju.27.7bj",
+             "whg.27.89a",
+             "ple.27.7bc",
+             "ple.27.7h-k",
+             "had.27.7b-k",
+             "sol.27.7bc",
+             "sol.27.7h-k",
+             "ple.27.89a",
+             "rjh.27.4a6",
+             "ghl.27.561214",
+             "reb.27.5a14",
+             "reg.27.561214",
+             "ane.27.8",
+             "lin.27.5b",
+             "cod.27.7e-k",
+             "raj.27.1012",
+             "bli.27.5b67",
+             "reb.27.14b"
 )
 clean_sag <- dplyr::filter(clean_sag, !StockKeyLabel %in% ONA_out)
 clean_status <- dplyr::filter(clean_status, !StockKeyLabel %in% ONA_out)
 
 check <- unique(clean_sag$StockKeyLabel)
 unique(clean_status$StockKeyLabel)
-write.csv(check, file = "ONA_Stock_list.csv")
+# write.csv(check, file = "ONA_Stock_list.csv")
 
 
 write.taf(clean_sag, dir = "data")

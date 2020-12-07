@@ -1,6 +1,6 @@
 
 library(icesTAF)
-taf.library(icesFO)
+library(icesFO)
 library(sf)
 library(ggplot2)
 library(dplyr)
@@ -16,12 +16,12 @@ ecoreg = "ONA"
 ##########
 
 ices_areas <-
-  sf::st_read("areas.csv",
+  sf::st_read("bootstrap/data/ICES_areas/areas.csv",
               options = "GEOM_POSSIBLE_NAMES=WKT", crs = 4326)
 ices_areas <- dplyr::select(ices_areas, -WKT)
 
 ecoregion <-
-  sf::st_read("ecoregion.csv",
+  sf::st_read("bootstrap/data/ICES_ecoregions/ecoregion.csv",
               options = "GEOM_POSSIBLE_NAMES=WKT", crs = 4326)
 ecoregion <- dplyr::select(ecoregion, -WKT)
 
