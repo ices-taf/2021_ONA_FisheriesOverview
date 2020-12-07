@@ -37,4 +37,16 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+<<<<<<< HEAD
 .Rproj.user
+=======
+
+# TAF stuff
+/bootstrap/data/
+/bootstrap/library/
+/bootstrap/software/
+/data/
+/model/
+/output/
+/report/
+>>>>>>> 065718504486d4dbe5c7680406582d1121011ac6
