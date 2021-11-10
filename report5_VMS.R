@@ -16,21 +16,21 @@ file_name <- function(name, ext = "") {
 
 
 ecoregion <-
-  st_read(taf.data.path("ICES_ecoregions", "ecoregion.csv"),
-    options = "GEOM_POSSIBLE_NAMES=WKT", crs = 4326
-  )
+  sf::st_read("ecoregion.csv",
+              options = "GEOM_POSSIBLE_NAMES=WKT", crs = 4326)
 ecoregion <- dplyr::select(ecoregion, -WKT)
+
 
 # read vms fishing effort
 effort <-
-  st_read(taf.data.path("ICES_vms_effort_map", "vms_effort.csv"),
+  sf::st_read("vms_effort.csv",
     options = "GEOM_POSSIBLE_NAMES=wkt", crs = 4326
   )
 effort <- dplyr::select(effort, -WKT)
 
 # read vms swept area ratio
 sar <-
-  st_read(taf.data.path("ICES_vms_sar_map", "vms_sar.csv"),
+  st_read( "vms_sar.csv",
     options = "GEOM_POSSIBLE_NAMES=wkt", crs = 4326
   )
 sar <- dplyr::select(sar, -WKT)
@@ -68,9 +68,9 @@ write_layer(effort, file_name("effort_map"))
 
 # save plot
 plot_effort_map(effort, ecoregion) +
-  ggtitle("Average MW Fishing hours 2015-2018")
+  ggtitle("Average MW Fishing hours 2018-2021")
 
-ggsave(file_name("effort_map", ext = "png"), path = "report", width = 170, height = 200, units = "mm", dpi = 300)
+ggsave(file_name(cap_year,ecoreg_code,"VMS_effort", ext = "png"), path = "report", width = 170, height = 200, units = "mm", dpi = 300)
 
 # ~~~~~~~~~~~~~~~#
 # A. Swept area map
@@ -80,11 +80,11 @@ ggsave(file_name("effort_map", ext = "png"), path = "report", width = 170, heigh
 write_layer(sar, file_name("sar_map"))
 
 plot_sar_map(sar, ecoregion, what = "surface") +
-  ggtitle("Average surface swept area ratio 2015-2018")
+  ggtitle("Average surface swept area ratio 2018-2021")
 
-ggsave(file_name("sar_map_surface", "png"), path = "report", width = 170, height = 200, units = "mm", dpi = 300)
+ggsave(file_name(cap_year,ecoreg_code,"VMS_sarA", ext = "png"), path = "report", width = 170, height = 200, units = "mm", dpi = 300)
 
 plot_sar_map(sar, ecoregion, what = "subsurface") +
-  ggtitle("Average subsurface swept area ratio 2015-2018")
+  ggtitle("Average subsurface swept area ratio 2018-2021")
 
-ggsave(file_name("sar_map_subsurface", "png"), path = "report", width = 170, height = 200, units = "mm", dpi = 300)
+ggsave(file_name(cap_year,ecoreg_code,"VMS_sarB", ext = "png"), path = "report", width = 170, height = 200, units = "mm", dpi = 300)
