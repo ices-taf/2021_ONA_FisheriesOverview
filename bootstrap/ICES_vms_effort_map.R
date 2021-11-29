@@ -2,7 +2,6 @@
 
 library("icesVMS")
 
-# icesVMS::update_token("adriana.villamor")
 vms_effort <- icesVMS::get_effort_map("Oceanic Northeast Atlantic")
 
 # convert to sf
