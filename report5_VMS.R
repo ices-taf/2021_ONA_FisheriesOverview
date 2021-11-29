@@ -11,7 +11,7 @@ mkdir("report")
 file_name <- function(name, ext = "") {
   name <- gsub(" ", "_", name)
   if (nzchar(ext)) ext <- paste0(".", ext)
-  paste0("2020_ONA_FO_", name, ext)
+  paste0("2021_ONA_FO_", name, ext)
 }
 
 
@@ -68,7 +68,7 @@ write_layer(effort, file_name("effort_map"))
 
 # save plot
 plot_effort_map(effort, ecoregion) +
-  ggtitle("Average MW Fishing hours 2018-2021")
+  ggtitle("Average MW Fishing hours 2017-2020")
 
 ggsave(file_name(cap_year,ecoreg_code,"VMS_effort", ext = "png"), path = "report", width = 170, height = 200, units = "mm", dpi = 300)
 
@@ -80,11 +80,11 @@ ggsave(file_name(cap_year,ecoreg_code,"VMS_effort", ext = "png"), path = "report
 write_layer(sar, file_name("sar_map"))
 
 plot_sar_map(sar, ecoregion, what = "surface") +
-  ggtitle("Average surface swept area ratio 2018-2021")
+  ggtitle("Average surface swept area ratio 2017-2020")
 
 ggsave(file_name(cap_year,ecoreg_code,"VMS_sarA", ext = "png"), path = "report", width = 170, height = 200, units = "mm", dpi = 300)
 
 plot_sar_map(sar, ecoregion, what = "subsurface") +
-  ggtitle("Average subsurface swept area ratio 2018-2021")
+  ggtitle("Average subsurface swept area ratio 2017-2020")
 
 ggsave(file_name(cap_year,ecoreg_code,"VMS_sarB", ext = "png"), path = "report", width = 170, height = 200, units = "mm", dpi = 300)
