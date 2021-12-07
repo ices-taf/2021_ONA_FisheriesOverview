@@ -21,7 +21,7 @@ official <- read.taf("bootstrap/data/ICES_nominal_catches/ICES_2006_2018_catches
 prelim <- read.taf("bootstrap/data/ICES_nominal_catches/ICES_preliminary_catches.csv")
 
 catch_dat <-
-  format_catches(2020, "Oceanic Northeast Atlantic",
+  format_catches(2021, "Oceanic Northeast Atlantic",
     hist, official, prelim, species_list, sid)
 
 write.taf(catch_dat, dir = "data", quote = TRUE)
@@ -97,7 +97,7 @@ sag_sum <- read.taf("bootstrap/data/SAG_data/SAG_summary.csv")
 sag_refpts <- read.taf("bootstrap/data/SAG_data/SAG_refpts.csv")
 sag_status <- read.taf("bootstrap/data/SAG_data/SAG_status.csv")
 
-clean_sag <- format_sag(sag_sum, sag_refpts, 2020, "Oceanic Northeast Atlantic")
+clean_sag <- format_sag(summary, refpts, 2021, "Oceanic Northeast Atlantic")
 clean_status <- format_sag_status(sag_status, 2020, "Oceanic Northeast Atlantic")
 
 ONA_out <- c("cap.27.2a514",

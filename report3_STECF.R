@@ -17,6 +17,9 @@ frmt_landings <- read.taf("data/frmt_landings.csv")
 ## 2: STECF effort and landings#
 ################################
 
+bi_df$country <- bi_df$`country name`
+bi_df$total.kW.days.at.sea <- bi_df$`total kW days at sea`
+
 #~~~~~~~~~~~~~~~#
 # Effort by country
 #~~~~~~~~~~~~~~~#
@@ -24,11 +27,12 @@ plot_stecf <- function(x, type, variable = NULL, cap_year, cap_month, line_count
         
         if(type == "effort"){
                 if(variable=="COUNTRY"){
-                        dat <- dplyr::rename_(effort_BtS, "type_var" ="country.name",
-                                              "VALUE" = "total.kW.days.at.sea")}
+                        dat <- dplyr::rename(bi_df, "type_var" = "country",
+                                              "VALUE" = "total.kW.days.at.sea")
+                        }
                 if(variable=="GEAR"){
-                        dat <- dplyr::rename_(x, "type_var" ="GEAR",
-                                              "VALUE" = "EFFORT")
+                        dat <- dplyr::rename(bi_df, "type_var" ="gear_class",
+                                              "VALUE" = "total.kW.days.at.sea")
                 }
                 Label <- "Nominal effort (1000 kW days at sea)"
         }
@@ -50,6 +54,10 @@ plot_stecf <- function(x, type, variable = NULL, cap_year, cap_month, line_count
         Plot <- subset(Plot,select = -typeTotal)
         dat <- dplyr::left_join(dat, Plot)
         # dat <- dat[complete.cases(dat), ]
+        # dat <- dat %>% filter(typeTotal>0)
+        
+        # confidential data here, "Belgium"     "Denmark"     "Spain"       "France"      "Ireland"     "Netherlands" "Poland"      "Portugal"   
+        dat <- dat %>% filter(confidential == "N")
         dat <- dplyr::mutate(dat, type_var = replace(type_var, RANK > 7, "other"))
         dat <- dplyr::group_by(dat,type_var, year) 
         dat <- dplyr::summarise(dat, typeTotal = sum(VALUE, na.rm = TRUE))
@@ -58,10 +66,9 @@ plot_stecf <- function(x, type, variable = NULL, cap_year, cap_month, line_count
         dat <- rbind(dat[!dat$type_var == "other",],
                      dat[dat$type_var == "other",])
         
-        my_caption = sprintf("STECF %s. Accessed %s/%s.",
-                             "19-11",
-                             "August",
-                             "2020")
+        my_caption = sprintf("STECF. Accessed %s/%s.",
+                             "October",
+                             "2021")
         
         cap_lab <- ggplot2::labs(title = "", x = "", y = Label,
                                  caption = my_caption)
@@ -272,8 +279,8 @@ plot_stecf <- function(x, type, variable = NULL, cap_year, cap_month, line_count
                 Label <- "Nominal effort (1000 kW days at sea)"
         }
         if(type == "landings"){
-                dat <- dplyr::rename(landings_BtS, "type_var" ="gear_class",
-                                      "VALUE" = "total.live.weight.landed..tonnes.")
+                dat <- dplyr::rename(bi_df, "type_var" ="gear_class",
+                                      "VALUE" = "total live weight landed (tonnes)")
                 Label <- "Landings (thousand tonnes)"
         }
         
@@ -297,15 +304,14 @@ plot_stecf <- function(x, type, variable = NULL, cap_year, cap_month, line_count
         dat <- rbind(dat[!dat$type_var == "other",],
                      dat[dat$type_var == "other",])
         
-        my_caption = sprintf("STECF %s. Accessed %s/%s.",
-                             "19-11",
-                             "August",
-                             "2020")
+        my_caption = sprintf("STECF. Accessed %s/%s.",
+                             "October",
+                             "2021")
         
         cap_lab <- ggplot2::labs(title = "", x = "", y = Label,
                                  caption = my_caption)
         
-        colList <- ggthemes::tableau_color_pal('Tableau 20')(5 + 1)
+        colList <- ggthemes::tableau_color_pal('Tableau 20')(6 + 1)
         
         order <- dplyr::group_by(dat, type_var)
         order <- dplyr::summarise(order, total = sum(typeTotal, na.rm = TRUE))
@@ -364,6 +370,8 @@ plot_stecf <- function(x, type, variable = NULL, cap_year, cap_month, line_count
         }
 }
 
+# confidential landings all years:
+# "Belgium"     "Denmark"     "Spain"       "France"      "Ireland"     "Netherlands" "Poland"      "Portugal"   
 
 
         #Plot

@@ -19,7 +19,7 @@ catch_dat <- read.taf("data/catch_dat.csv")
 
 # I will remove preliminary catches because most of it drops to zero
 
-catch_dat2 <- catch_dat %>% filter(YEAR < 2019)
+catch_dat2 <- catch_dat %>% filter(YEAR < 2020)
 
 #~~~~~~~~~~~~~~~#
 # By common name
@@ -44,6 +44,12 @@ write.taf(dat, paste0(year_cap, "_", ecoreg,"_FO_Catches_species.csv"), dir = "r
 catch_dat2$COUNTRY[which(catch_dat2$COUNTRY == "Russian Federation")] <- "Russia"
 plot_catch_trends(catch_dat2, type = "COUNTRY", line_count = 5, plot_type = "area")
 ggplot2::ggsave(paste0(year_cap, "_", ecoreg,"_FO_Catches_country_v2.png"), path = "report/", width = 178, height = 130, units = "mm", dpi = 300)
+
+#with 2020 prelim
+# catch_dat$COUNTRY[which(catch_dat$COUNTRY == "Russian Federation")] <- "Russia"
+# plot_catch_trends(catch_dat, type = "COUNTRY", line_count = 5, plot_type = "area")
+# plot_catch_trends(catch_dat, type = "COMMON_NAME", line_count = 5, plot_type = "line")
+
 
 #data
 dat <- plot_catch_trends(catch_dat, type = "COUNTRY", line_count = 9, plot_type = "area", return_data = TRUE)
