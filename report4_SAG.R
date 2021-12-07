@@ -202,7 +202,7 @@ png(file_name(cap_year,ecoreg_code,"SAG_Current_elasmobranch", ext = "png"),
     res = 300)
 p1_plot<-gridExtra::grid.arrange(kobe,
                                  bar, ncol = 2,
-                                 respect = TRUE, top = "benthic")
+                                 respect = TRUE, top = "elasmobranch")
 dev.off()
 
 # 5. Crustacean

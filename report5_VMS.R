@@ -1,9 +1,18 @@
 
-
+library(icesFO)
 library(icesTAF)
 library(dplyr)
 library(ggplot2)
 library(sf)
+
+## Run utilies
+source("bootstrap/utilities.r")
+
+# set values for automatic naming of files:
+cap_year <- 2021
+cap_month <- "November"
+ecoreg_code <- "ONA"
+ecoreg <- "ONA"
 
 mkdir("report")
 

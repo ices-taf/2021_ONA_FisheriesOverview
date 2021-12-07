@@ -2,7 +2,7 @@
 # Initial formatting of the data
 
 library(icesTAF)
-taf.library(icesFO)
+library(icesFO)
 library(dplyr)
 
 mkdir("data")
