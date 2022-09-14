@@ -97,13 +97,8 @@ sag_sum <- read.taf("bootstrap/data/SAG_data/SAG_summary.csv")
 sag_refpts <- read.taf("bootstrap/data/SAG_data/SAG_refpts.csv")
 sag_status <- read.taf("bootstrap/data/SAG_data/SAG_status.csv")
 
-<<<<<<< HEAD
-clean_sag <- format_sag(summary, refpts, 2021, "Oceanic Northeast Atlantic")
-clean_status <- format_sag_status(sag_status, 2020, "Oceanic Northeast Atlantic")
-=======
 clean_sag <- format_sag(sag_sum, sag_refpts, 2021, "Oceanic Northeast Atlantic")
 clean_status <- format_sag_status(sag_status, 2021, "Oceanic Northeast Atlantic")
->>>>>>> 6437da26e7000e8a79c6e6fff27270440804103c
 
 ONA_out <- c("cap.27.2a514",
              "cod.2127.1f14",
